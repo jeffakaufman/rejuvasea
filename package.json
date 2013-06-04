@@ -1,0 +1,27 @@
+{
+  "name": "rejuvasea",
+"description": "Upload and Vote On Pictures",
+"author": {
+  "name": "Jeff Kaufman",
+  "email": "jeffkaufman@kaufmaninternational.com"
+},
+"dependencies": {
+  "express": "~3.1.0",
+  "path": "~0.4.9",
+  "stylus": "0.31.0",
+  "jade": "0.27.7",
+  "moment": "1.7.2",
+  "emailjs": "0.3.3",
+  "mongoose": "~3.5.7",
+  "mongodb": "1.2.x",
+  "markdown": "~0.4.0"
+},
+"engines": {
+    "node": "0.9.x",
+    "npm": "1.2.x"
+},
+"scripts": {
+    "start": "app.js"
+},
+  "version": "0.0.0"
+}
