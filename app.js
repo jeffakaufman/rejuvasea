@@ -3,8 +3,11 @@ var application_root = __dirname,
     http = require('http'),
     path = require('path'),
     mongoose = require('mongoose'),
-    formidable = require('formidable')
+    formidable = require('formidable'),
+    knox = require('knox'),
+    ini = require('node-ini')
     var app = express();
+
 
 app.configure(function() {
     app.set('port', 4711);
@@ -19,8 +22,18 @@ app.configure(function() {
     app.use(express.static(path.join(application_root, 'site')));
 });
 
+// Load Config INI
+var cfg = ini.parseSync('./config.ini');
+
 //Connect to database
-mongoose.connect('mongodb://localhost/library_database');
+mongoose.connect(cfg.db.url + cfg.db.database);
+
+// Configure S3 Client
+var s3Client = knox.createClient({
+    key: cfg.s3.access_key_id,
+    secret: cfg.s3.secret_access_key,
+    bucket: cfg.s3.bucket
+});
 
 // Routes
 require('./routes/books').use(app, mongoose);
