@@ -21,12 +21,11 @@ exports.use = function(app, s3Client) {
 		// Finally save the file to S3
 		s3Client.putStream(stream, '/' + imageId, headers, function(err, res) {
 			if (!err) {
-				//console.log(res.req.url);
 				result = {
 					name: uploadedFiled.name,
 					type: uploadedFiled.type,
 					size: uploadedFiled.size,
-					url: res.req.url
+					url: "https://" + s3Client.options.bucket + ".s3.amazonaws.com/" + imageId
 				}
 				response.json(result);
 			} else {

@@ -30,8 +30,18 @@ app.LibraryView = Backbone.View.extend({
     },
 
     events: {
+        "click #add": "addHandler",
         "drop #picture": "dropHandler",
         "dragover #picture": "dragoverHandler"
+    },
+
+    addHandler: function(e) {
+        if (this.files) {
+            this.files.submit();
+            return false;
+        }
+        this.saveNewBook();
+        return false;
     },
 
     saveNewBook: function(bookCoverImageUrl) {
@@ -55,11 +65,16 @@ app.LibraryView = Backbone.View.extend({
             // Clear input field value
             $(el).val('');
         });
-        formData["coverImage"] = bookCoverImageUrl;
+        if (bookCoverImageUrl && bookCoverImageUrl.replace(/\s+/g, '').length > 0) {
+            formData["coverImage"] = bookCoverImageUrl;
+        }
         //console.log(formData)
-        // handle the file upload first
-        // save data next
         this.collection.create(formData);
+        // Clear current files property
+        this.files = null;
+        // Restore to default image
+        $('#picture').attr('src', 'img/oz.jpg');
+        $('#addBook').trigger('reset');
     },
 
     dropHandler: function(event) {
@@ -67,17 +82,20 @@ app.LibraryView = Backbone.View.extend({
         event.preventDefault();
         var e = event.originalEvent;
         e.dataTransfer.dropEffect = 'copy';
-        this.pictureFile = e.dataTransfer.files[0];
-        var test = e.dataTransfer.files[0];
+        this.previewSelectedFile(e.dataTransfer.files[0]);
+    },
+
+    dragoverHandler: function(event) {
+        event.preventDefault();
+    },
+
+    previewSelectedFile: function(file) {
+        console.log(file);
         // Read the image file from the local file system and display it in the img tag
         var reader = new FileReader();
         reader.onloadend = function() {
             $('#picture').attr('src', reader.result);
         };
-        reader.readAsDataURL(this.pictureFile);
-    },
-
-    dragoverHandler: function(event) {
-        event.preventDefault();
+        reader.readAsDataURL(file);
     }
 });
