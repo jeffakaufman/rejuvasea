@@ -13,7 +13,11 @@
     	<form id="addBook" action="..." data-remote="true" enctype="multipart/form-data" class="span10 offset1">
     	<div class="span10">
     	    <label for="coverImage">CoverImage: </label><img id="picture" width="180" src="img/oz.jpg"/>
-    	        <p><input id="coverImage" name="coverImage" type="file"/></p>
+    	        <p>
+                <form id="uploadForm">
+                    <input id="coverImage" name="coverImage" type="file" name="files[]" data-url="/upload" multiple />
+                </form>
+                </p>
     	        <label for="title">Title: </label><input id="title" type="text" />
     	        <label for="author">Author: </label><input id="author" type="text" />
     	        <label for="releaseDate">Release date: </label><input id="releaseDate" type="text" />
@@ -32,8 +36,8 @@
 			</ul>
 			<button class="delete">Delete</button>
 		</script>
-	
-<!-- load js files-->	
+
+<!-- load js files-->
         <script src="js/lib/jquery.min.js"></script>
         <script src="js/lib/jquery-ui-1.10.3.custom.min.js"></script>
         <script src="js/lib/underscore-min.js"></script>

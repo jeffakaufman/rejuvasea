@@ -75,6 +75,7 @@ app.LibraryView = Backbone.View.extend({
         };
         reader.readAsDataURL(this.pictureFile);
     },
+
     dragoverHandler: function(event) {
         event.preventDefault();
     }

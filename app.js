@@ -5,9 +5,18 @@ var application_root = __dirname,
     mongoose = require('mongoose'),
     formidable = require('formidable'),
     knox = require('knox'),
-    ini = require('node-ini')
-    var app = express();
+    ini = require('node-ini');
+var app = express();
 
+// Load Config INI
+var cfg = ini.parseSync('./config.ini');
+
+// Configure S3 Client
+var s3Client = knox.createClient({
+    key: cfg.s3.access_key_id,
+    secret: cfg.s3.secret_access_key,
+    bucket: cfg.s3.bucket
+});
 
 app.configure(function() {
     app.set('port', 4711);
@@ -22,21 +31,14 @@ app.configure(function() {
     app.use(express.static(path.join(application_root, 'site')));
 });
 
-// Load Config INI
-var cfg = ini.parseSync('./config.ini');
-
 //Connect to database
 mongoose.connect(cfg.db.url + cfg.db.database);
 
-// Configure S3 Client
-var s3Client = knox.createClient({
-    key: cfg.s3.access_key_id,
-    secret: cfg.s3.secret_access_key,
-    bucket: cfg.s3.bucket
-});
-
-// Routes
+// Configure Books Collection API Routes
 require('./routes/books').use(app, mongoose);
+
+// Configure File Upload Route
+require('./routes/upload').use(app, s3Client);
 
 app.get('/api', function(request, response) {
     response.send('Library API is running');

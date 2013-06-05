@@ -17,8 +17,8 @@
   "markdown": "~0.4.0",
   "formidable": "latest",
   "knox": "latest",
-  "jquery-file-upload-middleware": "latest",
-  "node-ini": "latest"
+  "node-ini": "latest",
+  "node-uuid": "latest"
 },
 "engines": {
     "node": "0.9.x",
