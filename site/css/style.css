@@ -52,3 +52,7 @@ body {
   font-size: 0;
   line-height: 0;
 }
+.bar {
+  height: 18px;
+  background: #008000;
+}
