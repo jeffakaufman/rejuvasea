@@ -14,7 +14,11 @@
   "emailjs": "0.3.3",
   "mongoose": "~3.5.7",
   "mongodb": "1.2.x",
-  "markdown": "~0.4.0"
+  "markdown": "~0.4.0",
+  "formidable": "latest",
+  "knox": "latest",
+  "node-ini": "latest",
+  "node-uuid": "latest"
 },
 "engines": {
     "node": "0.9.x",
