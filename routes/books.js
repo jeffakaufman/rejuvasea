@@ -14,7 +14,8 @@ exports.use = function(app, mongoose) {
         title: String,
         author: String,
         releaseDate: Date,
-        keywords: [Keywords]
+        keywords: [Keywords],
+        coverImage: String
     });
 
     //Models
@@ -42,7 +43,8 @@ exports.use = function(app, mongoose) {
             title: request.body.title,
             author: request.body.author,
             releaseDate: request.body.releaseDate,
-            keywords: request.body.keywords
+            keywords: request.body.keywords,
+            coverImage: request.body.coverImage
         });
         book.save(function(err) {
             if (!err) {
@@ -73,6 +75,7 @@ exports.use = function(app, mongoose) {
             book.author = request.body.author;
             book.releaseDate = request.body.releaseDate;
             book.keywords = request.body.keywords;
+            book.coverImage =  request.body.coverImage;
 
             return book.save(function(err) {
                 if (!err) {

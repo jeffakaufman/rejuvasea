@@ -30,13 +30,11 @@ app.LibraryView = Backbone.View.extend({
     },
 
     events: {
-        'click #add': 'addBook',
         "drop #picture": "dropHandler",
         "dragover #picture": "dragoverHandler"
     },
 
-    addBook: function(e) {
-        e.preventDefault();
+    saveNewBook: function(bookCoverImageUrl) {
         // if the user selected a file to upload, then upload it first
         var formData = {};
         $('#addBook div').children('input').each(function(i, el) {
@@ -57,7 +55,10 @@ app.LibraryView = Backbone.View.extend({
             // Clear input field value
             $(el).val('');
         });
-        console.log(formData)
+        formData["coverImage"] = bookCoverImageUrl;
+        //console.log(formData)
+        // handle the file upload first
+        // save data next
         this.collection.create(formData);
     },
 
